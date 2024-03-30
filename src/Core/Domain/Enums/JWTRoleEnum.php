@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Enums;
+namespace Core\Domain\Enums;
 
-enum JWTValidatorRole: string
+enum JWTRoleEnum: string
 {
     case ADMIN = 'Admin';
     case MEMBER = 'Member';
