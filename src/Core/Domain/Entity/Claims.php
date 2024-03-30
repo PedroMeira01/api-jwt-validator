@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace Core\Domain\Entity;
 
 use App\Exceptions\EntityValidationException;
+use Core\Domain\Entity\Traits\MagicMethodsTrait;
 use Core\Domain\Enums\JWTRoleEnum;
 use Core\Domain\Validation\DomainValidations;
 
 class Claims {
+
+    use MagicMethodsTrait;
 
     public function __construct(
         protected string $name,

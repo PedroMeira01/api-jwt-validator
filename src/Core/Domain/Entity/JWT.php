@@ -6,8 +6,11 @@ namespace Core\Domain\Entity;
 
 use App\Exceptions\JWTValidator\InvalidClaimsException;
 use App\Exceptions\JWTValidator\InvalidTokenFormatException;
+use Core\Domain\Entity\Traits\MagicMethodsTrait;
 
 class JWT {
+
+    use MagicMethodsTrait;
 
     const ALLOWED_CLAIMS = ['Name', 'Seed', 'Role'];
 
@@ -49,16 +52,16 @@ class JWT {
         return base64_decode(str_replace('_', '/', str_replace('-','+', $token)));
     }
 
-    public function hasAllowedClaims(string $decodedToken): array|false
+    private function hasAllowedClaims(string $decodedToken): array|false
     {
-        $receivedClaims = json_decode($decodedToken, true);
-            
+        $receivedClaims = (array) json_decode($decodedToken, true);
+
         $isValidClaims = collect($receivedClaims)
                             ->keys()->intersect(self::ALLOWED_CLAIMS)
                             ->count() === count($receivedClaims);
-        
+
         if (!$isValidClaims) {
-            throw new InvalidClaimsException();   
+            throw new InvalidClaimsException();
         }
 
         return $receivedClaims;
