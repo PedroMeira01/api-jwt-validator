@@ -31,6 +31,9 @@ jobs:
           php artisan route:cache
           php artisan view:cache
 
+      - name: Run PHPUnit tests
+        run: vendor/bin/phpunit
+        
       - name: Deploy to EC2
         uses: appleboy/ssh-action@master
         with:
