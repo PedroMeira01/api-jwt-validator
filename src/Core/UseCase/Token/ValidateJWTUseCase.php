@@ -16,8 +16,6 @@ class ValidateJWTUseCase {
             token: $input->token
         );
 
-        $token->isValid();
-
         return new OutputValidateTokenDTO(isValid: $token->isValid());
     }
     

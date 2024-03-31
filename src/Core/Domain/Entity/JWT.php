@@ -22,7 +22,7 @@ class JWT {
         $this->validate();
     }
 
-    private function validate()
+    private function validate(): void
     {
         $token = explode('.', $this->token);
 
