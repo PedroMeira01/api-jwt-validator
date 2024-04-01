@@ -18,7 +18,7 @@ class TokenValidatorController extends Controller
         $response = $useCase->execute(new InputValidateTokenDTO(
             token: $request->input('token')
         ));
-        
+
         return response()->json(new TokenValidatorResource(['isValid' => $response->isValid]), 200);
     }
 }
