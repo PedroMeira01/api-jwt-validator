@@ -11,6 +11,13 @@ class TokenValidatorResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
-        return $this->resource;
+        $message = $this->resource->isValid ? 'Valid token' : $this->resource->message;
+
+        $response = [
+            'isValid' => $this->resource->isValid,
+        ];
+        $response['message'] = $message;
+
+        return $response;
     }
 }

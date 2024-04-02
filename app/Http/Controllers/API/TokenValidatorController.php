@@ -15,10 +15,17 @@ class TokenValidatorController extends Controller
 {    
     public function validateJWT(TokenValidatorRequest $request, ValidateJWTUseCase $useCase): JsonResponse
     {
-        $response = $useCase->execute(new InputValidateTokenDTO(
-            token: $request->input('token')
-        ));
+        try {
+            $response = $useCase->execute(new InputValidateTokenDTO(
+                token: $request->input('token')
+            ));
 
-        return response()->json(new TokenValidatorResource(['isValid' => $response->isValid]), 200);
+            return response()->json(new TokenValidatorResource($response), 200);
+        } catch (\Throwable $th) {
+            return response()->json(new TokenValidatorResource((object) [
+                'isValid' => false,
+                'message' => $th->getMessage()
+            ]), 422);
+        }
     }
 }
